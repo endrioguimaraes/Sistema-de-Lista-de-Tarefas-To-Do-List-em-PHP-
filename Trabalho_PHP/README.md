@@ -1,68 +1,27 @@
-# Aplicação de Lista de Tarefas (To-Do List) em PHP
-
-Este projeto demonstra uma aplicação simples de Lista de Tarefas desenvolvida em PHP, com duas fases distintas de persistência de dados: a primeira utilizando arquivos de texto e a segunda migrando para um banco de dados MySQL com PDO.
-
-## Estrutura do Projeto
-
-```
-todo_list/
-├── fase1_txt/
-│   └── index.php
-├── fase2_mysql/
-│   ├── db.php
-│   └── index.php
-├── README.md
-└── script.sql
-```
-
-## Requisitos
-
-Para rodar este projeto, você precisará de um ambiente de servidor web com PHP instalado (ex: Apache, Nginx com PHP-FPM) e, para a Fase 2, um servidor MySQL/MariaDB.
-
-Recomenda-se o uso de ambientes como XAMPP, WAMP, MAMP ou Docker para facilitar a configuração.
-
-## Fase 1: Armazenamento em Arquivo Texto
-
-Nesta fase, as tarefas são armazenadas em um arquivo `tarefas.txt` localizado no mesmo diretório do `index.php`.
-
-### Como Rodar:
-
-1.  Certifique-se de ter um servidor web com PHP configurado.
-2.  Copie o conteúdo da pasta `fase1_txt` para o diretório raiz do seu servidor web (ou um subdiretório configurado).
-3.  Acesse `http://localhost/fase1_txt/index.php` (ou o caminho correspondente no seu servidor) no seu navegador.
-
-O arquivo `tarefas.txt` será criado automaticamente na primeira vez que você adicionar uma tarefa.
-
-## Fase 2: Migração para Banco de Dados (MySQL com PDO)
-
-Nesta fase, as tarefas são armazenadas em um banco de dados MySQL, utilizando PDO para a conexão e Prepared Statements para segurança.
-
-### Configuração do Banco de Dados:
-
-1.  Acesse seu servidor MySQL (via phpMyAdmin, MySQL Workbench ou linha de comando).
-2.  Execute o script `script.sql` para criar o banco de dados `todo_db` e a tabela `tarefas`:
-
-    ```sql
-    CREATE DATABASE IF NOT EXISTS todo_db;
-    USE todo_db;
-
-    CREATE TABLE IF NOT EXISTS tarefas (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        titulo VARCHAR(255) NOT NULL,
-        status VARCHAR(50) NOT NULL DEFAULT 'pendente'
-    );
-    ```
-
-3.  Verifique o arquivo `fase2_mysql/db.php` e ajuste as credenciais do banco de dados (`$user`, `$pass`) se necessário. Por padrão, o usuário é `root` e a senha é vazia em muitas instalações locais.
-
-### Como Rodar:
-
-1.  Copie o conteúdo da pasta `fase2_mysql` para o diretório raiz do seu servidor web (ou um subdiretório configurado).
-2.  Acesse `http://localhost/fase2_mysql/index.php` (ou o caminho correspondente no seu servidor) no seu navegador.
-
-## Funcionalidades Comuns a Ambas as Fases:
-
--   **Criar:** Adicionar uma nova tarefa com título e status inicial 'pendente'.
--   **Listar:** Exibir todas as tarefas cadastradas.
--   **Atualizar:** Alterar o status de uma tarefa (entre 'pendente' e 'concluida').
--   **Deletar:** Remover uma tarefa da lista.
+Meu Projeto de Lista de Tarefas (To-Do List) - PHP
+Este é o projeto que desenvolvi para praticar PHP. O objetivo foi criar uma lista de tarefas simples, mas que funcionasse de duas formas diferentes: primeiro salvando tudo em um arquivo de texto comum e depois evoluindo para um banco de dados MySQL.
+O que tem nas pastas?
+Dividi o projeto em duas partes para ficar bem organizado:
+fase1_txt: Aqui a lógica funciona usando apenas um arquivo .txt. É a versão inicial e mais simples.
+fase2_mysql: Esta é a versão migrada, onde usei banco de dados e tomei cuidado com a segurança usando PDO.
+Também deixei o arquivo script.sql pronto para criar o banco de dados rapidamente.
+Como testar a Fase 1 (Arquivo de Texto)
+Essa parte é bem direta, não precisa configurar banco de dados.
+Coloque a pasta fase1_txt no seu servidor (como o htdocs do XAMPP).
+Abra no navegador: http://localhost/fase1_txt/index.php.
+Já pode adicionar tarefas. O PHP vai criar um arquivo chamado tarefas.txt sozinho para guardar as informações.
+Como testar a Fase 2 (MySQL )
+Nesta fase, o sistema usa o MySQL para guardar as tarefas de forma mais profissional.
+Passo a passo:
+Vá no seu phpMyAdmin e crie um banco de dados chamado todo_db.
+Importe o arquivo script.sql que está na raiz do projeto ou copie o código SQL de lá e execute no console.
+Se o seu MySQL tiver uma senha de root, lembre-se de ajustar no arquivo db.php que está dentro da pasta fase2_mysql.
+Acesse no navegador: http://localhost/fase2_mysql/index.php.
+O que eu implementei:
+Em ambas as versões, você consegue fazer o básico de qualquer lista:
+Adicionar uma tarefa nova.
+Marcar como concluída (o texto fica riscado ).
+Desmarcar se mudar de ideia.
+Excluir a tarefa da lista.
+Um detalhe importante: Na Fase 2, eu usei Prepared Statements (PDO) para garantir a segurança contra ataques de SQL Injection no formulário.
+Para o visual, usei o Bootstrap para deixar a interface limpa e fácil de usar.
